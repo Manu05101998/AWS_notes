@@ -286,6 +286,126 @@
     </div>
   </div>
 
+  <!-- Accordion Item: Video 4 -->
+  <div class="accordion">
+    <div class="accordion-header">
+      AWS Video 4: EC2 Advanced Features
+      <span class="arrow">▶</span>
+    </div>
+    <div class="accordion-content">
+      <h3>🔍 Topics Covered</h3>
+      <ul>
+        <li>What are EC2 Status Checks? (System & Instance level health monitoring)</li>
+        <li>Common reasons why an instance may fail checks (network issues, OS-level issues)</li>
+        <li>How to troubleshoot using remote access (SSH for Linux, RDP for Windows)</li>
+        <li>Basic Linux commands to verify instance health (uptime, top, df -h, ping)</li>
+        <li>Security Groups – fine-tuning inbound/outbound traffic</li>
+        <li>Elastic IPs and importance of static IP mapping</li>
+        <li>CloudWatch integration for monitoring and alarms</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Accordion Item: Video 5 -->
+  <div class="accordion">
+    <div class="accordion-header">
+      AWS Video 5: Security Groups & Hosting a Website on EC2
+      <span class="arrow">▶</span>
+    </div>
+    <div class="accordion-content">
+      <h3>🛡️ What is a Security Group in AWS?</h3>
+      <p>
+        A <strong>Security Group (SG)</strong> is a <em>stateful</em> virtual firewall attached to your EC2 instance’s network interface.  
+        It controls which traffic is <strong>allowed in (inbound)</strong> and <strong>allowed out (outbound)</strong>.  
+        By default, all inbound is denied and all outbound is allowed (you can change this).
+      </p>
+
+      <h3>🔁 Inbound & Outbound Rules Explained</h3>
+      <ul>
+        <li><strong>Inbound rules</strong> let specific traffic reach your instance. Examples:
+          <ul>
+            <li>SSH: TCP 22 from <code>My IP</code> (safer) to administer Linux.</li>
+            <li>HTTP: TCP 80 from <code>0.0.0.0/0</code> (public web access).</li>
+            <li>HTTPS: TCP 443 from <code>0.0.0.0/0</code> for secure web.</li>
+          </ul>
+        </li>
+        <li><strong>Outbound rules</strong> define what your instance can reach (e.g., the internet). Most apps keep “All traffic” allowed.</li>
+        <li><strong>Stateful</strong> means return traffic is automatically allowed—no need to add reverse rules.</li>
+      </ul>
+
+      <h3>🧱 How to Create a Custom Security Group</h3>
+      <ol>
+        <li>AWS Console → <strong>EC2</strong> → <strong>Security Groups</strong> → <strong>Create security group</strong>.</li>
+        <li>Name it (e.g., <code>web-sg</code>), select the correct <strong>VPC</strong>.</li>
+        <li>Add <strong>Inbound</strong> rules:
+          <ul>
+            <li>HTTP, TCP 80, Source: <code>0.0.0.0/0</code></li>
+            <li>HTTPS, TCP 443, Source: <code>0.0.0.0/0</code> (optional)</li>
+            <li>SSH, TCP 22, Source: <code>My IP</code> (recommended)</li>
+          </ul>
+        </li>
+        <li>Leave <strong>Outbound</strong> as “All traffic” (or restrict if required).</li>
+        <li>Click <strong>Create security group</strong>.</li>
+      </ol>
+
+      <h3>🔗 Assigning the Security Group to an EC2 Instance</h3>
+      <ul>
+        <li><strong>During launch:</strong> On the “Security group” step, choose <em>Select existing</em> and pick <code>web-sg</code>.</li>
+        <li><strong>After launch:</strong> EC2 → Instances → select instance → <em>Actions → Security → Change security groups</em> → add <code>web-sg</code> → <strong>Save</strong>.</li>
+      </ul>
+
+      <h3>🌐 Installing & Running a Sample Web Server</h3>
+      <p>SSH into the instance, then use one of the quick setups below.</p>
+
+      <h4>Option A — Apache on Ubuntu/Debian</h4>
+      <pre><code>sudo apt update
+sudo apt install -y apache2
+sudo systemctl enable --now apache2
+echo "&lt;h1&gt;Hello from Apache on EC2&lt;/h1&gt;" | sudo tee /var/www/html/index.html
+</code></pre>
+
+      <h4>Option B — Apache on Amazon Linux 2</h4>
+      <pre><code>sudo yum update -y
+sudo yum install -y httpd
+sudo systemctl enable --now httpd
+echo "&lt;h1&gt;Hello from Apache on Amazon Linux 2&lt;/h1&gt;" | sudo tee /var/www/html/index.html
+</code></pre>
+
+      <h4>Option C — Simple Node.js Server (port 3000)</h4>
+      <pre><code>curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo -E bash -   # (Amazon Linux/RHEL) use apt setup on Ubuntu
+sudo yum install -y nodejs || sudo apt install -y nodejs npm
+cat &gt; server.js &lt;&lt;'EOF'
+const http = require('http');
+const server = http.createServer((req, res) =&gt; {
+  res.end('Hello from Node.js on EC2');
+});
+server.listen(3000, '0.0.0.0');
+console.log('Server on port 3000');
+EOF
+node server.js
+</code></pre>
+      <p><em>Note:</em> If you use Node on port <strong>3000</strong>, add an inbound rule for TCP 3000 or place Node behind Apache/Nginx as a reverse proxy.</p>
+
+      <h3>🔎 Accessing Your Hosted Website via Public IP</h3>
+      <ol>
+        <li>In EC2 → Instances, copy the instance’s <strong>Public IPv4 address</strong>.</li>
+        <li>Ensure your SG allows the port you’re using:
+          <ul>
+            <li>Apache: TCP <strong>80</strong> (and 443 if HTTPS).</li>
+            <li>Node example: TCP <strong>3000</strong>.</li>
+          </ul>
+        </li>
+        <li>Open a browser:
+          <ul>
+            <li><code>http://&lt;PUBLIC_IP&gt;/</code> (Apache)</li>
+            <li><code>http://&lt;PUBLIC_IP&gt;:3000/</code> (Node)</li>
+          </ul>
+        </li>
+        <li>If it doesn’t load, re-check SG inbound rules, instance running state, and that the service is active.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="youtube-link">
     🎥 Follow my YouTube Channel:
     <a href="https://youtu.be/62OltaW2B-o?si=yqLGfLjm4XsdWhFe" target="_blank">CodeOps_with_shantanu</a>
