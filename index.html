@@ -11,6 +11,7 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      position: relative;
     }
 
     h1 {
@@ -35,7 +36,7 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 20px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s, background-color 0.3s;
       height: 150px;
       display: flex;
       flex-direction: column;
@@ -64,11 +65,6 @@
       color: white;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
     footer {
       margin-top: 40px;
       font-size: 0.9rem;
@@ -93,65 +89,145 @@
     .social-footer a.youtube {
       color: #ff0000;
     }
+
+    /* Fade-out animation */
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    /* Notification style */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #a53535;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Roadmap section */
+    .roadmap-section {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Divider line */
+    .divider {
+      border: none;
+      height: 1px;
+      background: #ccc;
+      margin: 40px auto;
+      width: 80%;
+    }
   </style>
 </head>
 <body>
 
   <h1>DevOps Notes by Shantanu</h1>
 
+  <!-- Tools Grid -->
   <div class="grid">
-    <a href="aws.html">
-      <div class="box">
-        <h2>AWS</h2>
-        <p>Cloud services & infra.</p>
-      </div>
-    </a>
+    <div class="box" onclick="goToAWS()">
+      <h2>AWS</h2>
+      <p>Cloud services & infra.</p>
+    </div>
 
-    <a href="#">
-      <div class="box">
-        <h2>Docker</h2>
-        <p>Run apps in containers.</p>
-      </div>
-    </a>
+    <div class="box" onclick="comingSoon('Docker')">
+      <h2>Docker</h2>
+      <p>Run apps in containers.</p>
+    </div>
 
-    <a href="#">
-      <div class="box">
-        <h2>Linux</h2>
-        <p>Open-source OS basics.</p>
-      </div>
-    </a>
+    <div class="box" onclick="comingSoon('Linux')">
+      <h2>Linux</h2>
+      <p>Open-source OS basics.</p>
+    </div>
 
-    <a href="#">
-      <div class="box">
-        <h2>Jenkins</h2>
-        <p>CI/CD automation tool.</p>
-      </div>
-    </a>
+    <div class="box" onclick="comingSoon('Jenkins')">
+      <h2>Jenkins</h2>
+      <p>CI/CD automation tool.</p>
+    </div>
 
-    <a href="#">
-      <div class="box">
-        <h2>Kubernetes</h2>
-        <p>Manage containers at scale.</p>
-      </div>
-    </a>
+    <div class="box" onclick="comingSoon('Kubernetes')">
+      <h2>Kubernetes</h2>
+      <p>Manage containers at scale.</p>
+    </div>
 
-    <a href="#">
-      <div class="box">
-        <h2>Git/GitHub</h2>
-        <p>Track and share code.</p>
-      </div>
-    </a>
+    <div class="box" onclick="comingSoon('Git/GitHub')">
+      <h2>Git/GitHub</h2>
+      <p>Track and share code.</p>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <hr class="divider">
+
+  <!-- Roadmap Section -->
+  <div class="roadmap-section">
+    <div class="box" onclick="goToRoadmap()">
+      <h2>Roadmap</h2>
+      <p>Your DevOps learning path.</p>
+    </div>
   </div>
 
   <footer>
     &copy; 2025 CodeOps with Shantanu | Learn Daily, Deploy Smart
 
     <div class="social-footer">
-      <a href="https://www.instagram.com/yourhandle" class="instagram" target="_blank">📷 Instagram</a>
+      <a href="https://www.instagram.com/codeops_with_shantanu?igsh=MWU1OTN3eTd3eTNzMg==" class="instagram" target="_blank">📷 Instagram</a>
       |
       <a href="https://youtube.com/@codeopswithshantanu?si=lJWZXJaBbtIqdJgE" class="youtube" target="_blank">▶️ YouTube</a>
     </div>
   </footer>
+
+  <!-- Notification Box -->
+  <div id="notify" class="notification">This note is coming soon!</div>
+
+  <script>
+    function goToAWS() {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "aws.html";
+      }, 500);
+    }
+
+    function goToRoadmap() {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "roadmap.html";
+      }, 500);
+    }
+
+    function comingSoon(topic) {
+      const notify = document.getElementById("notify");
+      notify.textContent = `✅ ${topic} notes are coming soon! Stay tuned.`;
+      notify.classList.add("show");
+
+      setTimeout(() => {
+        notify.classList.remove("show");
+      }, 3000);
+    }
+  </script>
 
 </body>
 </html>
