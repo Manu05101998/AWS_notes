@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cloud Learning Roadmap</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f4f4f4;
+      transition: background 0.5s ease;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+    }
+    .cloud-selector {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .cloud-btn {
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .cloud-btn:hover {
+      transform: scale(1.1);
+    }
+    .aws { background: #ffcc00; color: black; }
+    .gcp { background: #ea4335; color: white; }
+    .azure { background: #0078d4; color: white; }
+
+    .roadmap {
+      display: none;
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 25px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      animation: fadeIn 0.5s ease;
+    }
+    .roadmap.active { display: block; }
+
+    h2 { margin-top: 0; }
+    h3 { color: #444; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin: 8px 0; padding-left: 25px; position: relative; }
+    li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: green;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌩 Cloud Engineer Roadmap</h1>
+    <p>Select your cloud to explore the full learning path</p>
+  </header>
+
+  <div class="cloud-selector">
+    <button class="cloud-btn aws" onclick="openRoadmap('aws')">AWS</button>
+    <button class="cloud-btn gcp" onclick="openRoadmap('gcp')">Google Cloud</button>
+    <button class="cloud-btn azure" onclick="openRoadmap('azure')">Azure</button>
+  </div>
+
+  <!-- AWS ROADMAP -->
+  <div id="aws" class="roadmap">
+    <h2>Amazon Web Services (AWS) Roadmap</h2>
+
+    <h3>Phase 1: Fundamentals (4–5 weeks)</h3>
+    <ul>
+      <li>Learn Cloud Basics (regions, AZs, edge locations)</li>
+      <li><b>IAM:</b> Users, Roles, Policies, MFA, least privilege</li>
+      <li><b>Networking (VPC):</b> Subnets, Route Tables, IGW, NAT, SGs, NACLs</li>
+      <li><b>Compute (EC2):</b> Launch, SSH, EBS, AMI, Auto Scaling</li>
+      <li><b>Storage (S3):</b> Buckets, policies, versioning, lifecycle rules</li>
+      <li><b>Hands-On:</b> Host static website on S3, EC2 + SSH, VPC with subnets</li>
+    </ul>
+
+    <h3>Phase 2: Advanced Core (5–6 weeks)</h3>
+    <ul>
+      <li><b>Serverless:</b> Lambda, API Gateway, DynamoDB</li>
+      <li><b>Containers:</b> ECS, EKS, Fargate</li>
+      <li><b>Databases:</b> RDS, Aurora, ElastiCache</li>
+      <li><b>Monitoring:</b> CloudWatch, CloudTrail, Config</li>
+      <li><b>IaC:</b> CloudFormation, CDK, Terraform (intro)</li>
+      <li><b>Hands-On:</b> Serverless CRUD API, Docker app on ECS/EKS, Infra automation</li>
+    </ul>
+
+    <h3>Phase 3: Security, Scaling & DevOps (4–5 weeks)</h3>
+    <ul>
+      <li><b>Security:</b> KMS, Secrets Manager, GuardDuty</li>
+      <li><b>Scaling/HA:</b> Multi-AZ, ALB/NLB</li>
+      <li><b>CI/CD:</b> CodePipeline, CodeDeploy, GitHub Actions</li>
+      <li><b>Cost Optimization:</b> Trusted Advisor, Cost Explorer</li>
+      <li><b>Hands-On:</b> CI/CD pipeline for Node.js, HA architecture, IAM hardening</li>
+    </ul>
+
+    <h3>Phase 4: Projects & Certification (6–8 weeks)</h3>
+    <ul>
+      <li>Build serverless web app</li>
+      <li>Deploy scalable WordPress (EC2 + RDS + ELB + ASG)</li>
+      <li>Real-time data pipeline (Kinesis + Lambda + S3)</li>
+      <li><b>Cert Path:</b> Solutions Architect Associate → Professional → DevOps Pro</li>
+    </ul>
+  </div>
+
+  <!-- GCP ROADMAP -->
+  <div id="gcp" class="roadmap">
+    <h2>Google Cloud Platform (GCP) Roadmap</h2>
+
+    <h3>Phase 1: Fundamentals (4–5 weeks)</h3>
+    <ul>
+      <li>Cloud basics (regions, zones, projects, billing)</li>
+      <li><b>IAM:</b> Roles, Policies, Service Accounts</li>
+      <li><b>Networking (VPC):</b> Subnets, Routes, Firewalls, Peering</li>
+      <li><b>Compute:</b> VM Instances, Images, Autoscaling</li>
+      <li><b>Storage:</b> Cloud Storage, buckets, lifecycle mgmt</li>
+      <li><b>Hands-On:</b> Static site on Cloud Storage, VM with SSH, VPC setup</li>
+    </ul>
+
+    <h3>Phase 2: Advanced Core (5–6 weeks)</h3>
+    <ul>
+      <li><b>Serverless:</b> Cloud Functions, Cloud Run, Pub/Sub</li>
+      <li><b>Containers:</b> GKE (Kubernetes), Artifact Registry</li>
+      <li><b>Databases:</b> Cloud SQL, Bigtable, Firestore, Memorystore</li>
+      <li><b>Monitoring:</b> Operations Suite (Stackdriver)</li>
+      <li><b>IaC:</b> Deployment Manager, Terraform</li>
+      <li><b>Hands-On:</b> Deploy app with Cloud Run, CI/CD with Cloud Build</li>
+    </ul>
+
+    <h3>Phase 3: Security, Scaling & DevOps (4–5 weeks)</h3>
+    <ul>
+      <li><b>Security:</b> Cloud IAM, KMS, Security Command Center</li>
+      <li><b>Scaling:</b> Load Balancers, Autoscaler</li>
+      <li><b>CI/CD:</b> Cloud Build, Artifact Registry, GitHub Actions</li>
+      <li><b>Cost Optimization:</b> Billing reports, Budgets, Recommender</li>
+      <li><b>Hands-On:</b> CI/CD pipeline, scalable GKE app, secure service accounts</li>
+    </ul>
+
+    <h3>Phase 4: Projects & Certification (6–8 weeks)</h3>
+    <ul>
+      <li>Serverless event-driven app</li>
+      <li>Deploy WordPress with Cloud SQL + Load Balancer</li>
+      <li>Streaming pipeline with Pub/Sub + Dataflow + BigQuery</li>
+      <li><b>Cert Path:</b> Associate Cloud Engineer → Professional Cloud Architect</li>
+    </ul>
+  </div>
+
+  <!-- AZURE ROADMAP -->
+  <div id="azure" class="roadmap">
+    <h2>Microsoft Azure Roadmap</h2>
+
+    <h3>Phase 1: Fundamentals (4–5 weeks)</h3>
+    <ul>
+      <li>Cloud basics (regions, subscriptions, resource groups)</li>
+      <li><b>IAM:</b> RBAC, Azure AD basics</li>
+      <li><b>Networking:</b> VNets, Subnets, NSGs, Azure Firewall</li>
+      <li><b>Compute:</b> VMs, VM Scale Sets</li>
+      <li><b>Storage:</b> Blob, File, Table, Queue</li>
+      <li><b>Hands-On:</b> Static website in Blob Storage, VM with NSG</li>
+    </ul>
+
+    <h3>Phase 2: Advanced Core (5–6 weeks)</h3>
+    <ul>
+      <li><b>Serverless:</b> Azure Functions, Logic Apps</li>
+      <li><b>Containers:</b> AKS, ACR</li>
+      <li><b>Databases:</b> Azure SQL, Cosmos DB, Redis Cache</li>
+      <li><b>Monitoring:</b> Azure Monitor, Log Analytics</li>
+      <li><b>IaC:</b> ARM Templates, Bicep, Terraform</li>
+      <li><b>Hands-On:</b> Serverless API, CI/CD with Azure DevOps</li>
+    </ul>
+
+    <h3>Phase 3: Security, Scaling & DevOps (4–5 weeks)</h3>
+    <ul>
+      <li><b>Security:</b> Key Vault, Defender for Cloud, Policies</li>
+      <li><b>Scaling:</b> Load Balancer, App Gateway, Availability Zones</li>
+      <li><b>CI/CD:</b> Azure DevOps Pipelines, GitHub Actions</li>
+      <li><b>Cost Optimization:</b> Azure Advisor, Cost Management</li>
+      <li><b>Hands-On:</b> CI/CD pipeline, deploy HA app, secure with Key Vault</li>
+    </ul>
+
+    <h3>Phase 4: Projects & Certification (6–8 weeks)</h3>
+    <ul>
+      <li>Build serverless event-driven app</li>
+      <li>Deploy scalable web app with SQL + Load Balancer</li>
+      <li>Streaming data pipeline with Event Hubs + Stream Analytics</li>
+      <li><b>Cert Path:</b> Azure Fundamentals → Azure Administrator → Solutions Architect Expert</li>
+    </ul>
+  </div>
+
+  <script>
+    function openRoadmap(cloud) {
+      document.querySelectorAll(".roadmap").forEach(el => el.classList.remove("active"));
+      document.getElementById(cloud).classList.add("active");
+
+      // background color change
+      if(cloud === "aws") document.body.style.background = "#fff6cc";
+      if(cloud === "gcp") document.body.style.background = "#ffe6e0";
+      if(cloud === "azure") document.body.style.background = "#e0f0ff";
+    }
+  </script>
+</body>
+</html>
